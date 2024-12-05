@@ -25,7 +25,7 @@ const DesktopMenu: React.FC<{
         text-2xl font-medium transition-colors duration-200 ease-out 
         focus:outline-none ml-0 p-6
         ${isPopoverOpen === index
-                                    ? 'text-indigo-600 bg-white border-indigo-500 border-r-2 border-l-2'
+                                    ? 'text-indigo-600 bg-white before:border'
                                     : 'border-transparent text-gray-700 hover:text-gray-800 '
                                 }`}
                             >
