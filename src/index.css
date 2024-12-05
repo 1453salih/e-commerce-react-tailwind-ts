@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('./styles/fonts/Roboto/Roboto-Medium.woff2') format('woff2'),
+         url('./styles/fonts/Poppins/Poppins-Medium.ttf') format('truetype');
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
