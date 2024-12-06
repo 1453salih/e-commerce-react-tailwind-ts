@@ -1,6 +1,7 @@
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Mousewheel, FreeMode } from 'swiper/modules';
+import { Link } from 'react-router-dom';
 
 // Swiper styles(Editörde kızarıyor ama çalışıyor)
 import 'swiper/css';
@@ -23,6 +24,7 @@ interface ProductSliderProps {
     title: string;
     products: Product[];
     onAddToCart?: (product: Product) => void;
+    viewAllLink?: () => void;
     ProductCard: React.ComponentType<{
         product: Product,
         onAddToCart?: (product: Product) => void
@@ -33,51 +35,56 @@ const ProductSlider: React.FC<ProductSliderProps> = ({
                                                          title,
                                                          products,
                                                          onAddToCart,
+                                                         viewAllLink, // Add to destructured props
                                                          ProductCard
                                                      }) => {
     return (
-        <div className="container mx-auto px-4 py-8">
-            <div className="mb-6">
-                <h2 className="text-2xl font-bold text-gray-800 mb-4">{title}</h2>
-
-                <Swiper
-                    modules={[Navigation, Pagination, Mousewheel, FreeMode]}
-                    spaceBetween={24}
-                    slidesPerView={'auto'}
-                    navigation
-                    pagination={{clickable: true}}
-                    mousewheel={true}
-                    freeMode={true}
-                    breakpoints={{
-                        //? pencereye göre kart
-                        // When window width is >= 640px
-                        640: {
-                            slidesPerView: 2,
-                            spaceBetween: 20,
-                        },
-                        // When window width is >= 768px
-                        768: {
-                            slidesPerView: 3,
-                            spaceBetween: 30,
-                        },
-                        // When window width is >= 1024px
-                        1024: {
-                            slidesPerView: 4,
-                            spaceBetween: 40,
-                        },
-                    }}
-                    className="product-swiper"
-                >
-                    {products.map((product) => (
-                        <SwiperSlide key={product.id} className="!w-72">
-                            <ProductCard
-                                product={product}
-                                onAddToCart={onAddToCart}
-                            />
-                        </SwiperSlide>
-                    ))}
-                </Swiper>
+        <div className="container mx-auto py-8">
+            <div className="mb-6 flex items-center justify-between">
+                <h2 className="text-2xl font-bold text-gray-800">{title}</h2>
+                {viewAllLink && (
+                    <Link
+                        to={viewAllLink}
+                        className="text-blue-600 hover:text-blue-800 font-semibold text-sm"
+                    >
+                        Tümünü Gör
+                    </Link>
+                )}
             </div>
+
+            <Swiper
+                modules={[Navigation, Pagination, Mousewheel, FreeMode]}
+                spaceBetween={24}
+                slidesPerView={'auto'}
+                navigation
+                pagination={{clickable: true}}
+                mousewheel={true}
+                freeMode={true}
+                breakpoints={{
+                    640: {
+                        slidesPerView: 2,
+                        spaceBetween: 20,
+                    },
+                    768: {
+                        slidesPerView: 3,
+                        spaceBetween: 30,
+                    },
+                    1024: {
+                        slidesPerView: 4,
+                        spaceBetween: 40,
+                    },
+                }}
+                className="product-swiper"
+            >
+                {products.map((product) => (
+                    <SwiperSlide key={product.id} className="!w-72">
+                        <ProductCard
+                            product={product}
+                            onAddToCart={onAddToCart}
+                        />
+                    </SwiperSlide>
+                ))}
+            </Swiper>
 
             {/* Swiper için özel stil */}
             <style>
