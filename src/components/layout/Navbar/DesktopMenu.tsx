@@ -7,7 +7,7 @@ const DesktopMenu: React.FC<{
     setIsPopoverOpen: React.Dispatch<React.SetStateAction<number | null>>;
 }> = ({ isPopoverOpen, setIsPopoverOpen }) => {
     return (
-        <PopoverGroup className="hidden lg:block lg:self-stretch z-30">
+        <PopoverGroup className="hidden lg:block lg:self-stretch z-40">
             <div className="flex h-full ">
                 {navigation.categories.map((category, index) => (
                     <Popover
@@ -15,19 +15,18 @@ const DesktopMenu: React.FC<{
                         className="flex"
                         onMouseEnter={() => setIsPopoverOpen(index)}
                         onMouseLeave={() => setIsPopoverOpen(null)}
-
-
                     >
                         <div className="relative flex">
                             <PopoverButton
                                 className={`
         relative z-10 -mb-px flex items-center
-        text-2xl font-medium transition-colors duration-200 ease-out 
+        text-xl font-medium transition-colors duration-200 ease-out 
         focus:outline-none ml-0 p-6
         ${isPopoverOpen === index
                                     ? 'text-indigo-600 bg-white before:border'
                                     : 'border-transparent text-gray-700 hover:text-gray-800 '
                                 }`}
+
                             >
                                 {category.name}
                             </PopoverButton>
@@ -35,12 +34,14 @@ const DesktopMenu: React.FC<{
 
                         <PopoverPanel
                             static
-                            className={`absolute inset-x-0 top-full text-sm text-gray-500 transition ${
+                            className={`absolute inset-x-0 top-full text-sm text-gray-500 transition z-40 ${
                                 isPopoverOpen === index ? 'opacity-100' : 'opacity-0 pointer-events-none'
                             }`}
                         >
                             <div className="container mx-auto px-8">
-                                <div className="relative bg-white border-b-2 border-gray-50">
+                                <div className="relative bg-white border-b-2 border-gray-50"
+                                     onMouseLeave={() => setIsPopoverOpen(null)}
+                                >
                                     <div className="mx-auto max-w-7xl px-8">
                                         <div className="grid grid-cols-2 gap-x-8 gap-y-10 py-16">
                                             <div className="col-start-2 grid grid-cols-2 gap-x-8">
@@ -93,7 +94,7 @@ const DesktopMenu: React.FC<{
                     <a
                         key={page.name}
                         href={page.href}
-                        className="flex items-center text-2xl font-medium text-gray-700 hover:text-gray-800 ml-4 mr-4"
+                        className="flex items-center text-xl font-medium text-gray-700 hover:text-gray-800 ml-4 mr-4"
                     >
                         {page.name}
                     </a>

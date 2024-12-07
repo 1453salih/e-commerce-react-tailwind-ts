@@ -1,15 +1,15 @@
-    import React, { useState } from "react";
+import React, { useState } from "react";
 import {Bars3Icon, MagnifyingGlassIcon,ShoppingBagIcon} from "@heroicons/react/24/outline";
 
 import MobileMenu from "./MobileMenu.tsx";
-import DesktopMenu from "./DesktopMenu.tsx";
+import SubNavbar from "../SubNavbar/SubNavbar.tsx";
+import SearchModal from "./SearchModal.tsx";
 
 
 // Navbar Component
 export const Navbar: React.FC = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-    const [isPopoverOpen, setIsPopoverOpen] = useState<number | null>(null);
-
+    const [isSearchModalOpen, setSearchModalOpen] = useState(false);
     return (
         <div className="bg-white">
             <header className="relative bg-gray-100 static">
@@ -27,9 +27,9 @@ export const Navbar: React.FC = () => {
                                 onClick={() => setMobileMenuOpen(true)}
                                 className="relative rounded-md bg-white p-2 text-gray-400 lg:hidden"
                             >
-                                <span className="absolute -inset-0.5" />
+                                <span className="absolute -inset-0.5"/>
                                 <span className="sr-only">Open menu</span>
-                                <Bars3Icon aria-hidden="true" className="size-6" />
+                                <Bars3Icon aria-hidden="true" className="size-6"/>
                             </button>
 
                             {/* Logo */}
@@ -43,32 +43,33 @@ export const Navbar: React.FC = () => {
                                     />
                                 </a>
                             </div>
-
-                            {/* Desktop Menu */}
-                            <DesktopMenu
-                                isPopoverOpen={isPopoverOpen}
-                                setIsPopoverOpen={setIsPopoverOpen}
-                            />
+                            {/* Search */}
+                            <div className="flex-1 flex justify-center items-center">
+                                <button
+                                    onClick={() => setSearchModalOpen(true)}
+                                    className="flex items-center p-2 border border-gray-300 rounded-md text-gray-500 hover:border-gray-400 w-1/2"
+                                >
+                                    <MagnifyingGlassIcon className="h-5 w-5 mr-2"/>
+                                    <span>Ürün arayın...</span>
+                                </button>
+                                {/* Search Modal */}
+                                <SearchModal
+                                    open={isSearchModalOpen}
+                                    onClose={() => setSearchModalOpen(false)}
+                                />
+                            </div>
 
                             {/* Rest of the navbar content */}
                             <div className="ml-auto flex items-center">
-                                {/* Sign in, currency, search, cart icons */}
                                 <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
                                     <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">
                                         Sign in
                                     </a>
-                                    <span aria-hidden="true" className="h-6 w-px bg-gray-200" />
+                                    <span aria-hidden="true" className="h-6 w-px bg-gray-200"/>
                                     <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">
                                         Create account
                                     </a>
                                 </div>
-                            </div>
-                            {/* Search */}
-                            <div className="flex lg:ml-6">
-                                <a href="#" className="p-2 text-gray-400 hover:text-gray-500">
-                                    <span className="sr-only">Search</span>
-                                    <MagnifyingGlassIcon aria-hidden="true" className="size-6"/>
-                                </a>
                             </div>
 
                             {/* Cart */}
@@ -86,18 +87,8 @@ export const Navbar: React.FC = () => {
                         </div>
                     </div>
                 </nav>
+                <SubNavbar/>
                 <MobileMenu open={mobileMenuOpen} setOpen={setMobileMenuOpen}></MobileMenu>
-                {/* Overlay */}
-                {isPopoverOpen !== null && (
-                    <div
-                        className="fixed inset-x-0 bg-black/20 backdrop-blur-sm z-20 transition-opacity duration-300"
-                        style={{
-                            height: 'calc(100vh)'
-                        }}
-                        onClick={() => setIsPopoverOpen(null)}
-                        aria-hidden="true"
-                    />
-                )}
             </header>
         </div>
     );

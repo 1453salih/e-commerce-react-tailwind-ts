@@ -10,11 +10,6 @@ export const HomePage = () => {
     return (
         <>
             <div className="container mx-auto py-10 px-6">
-                <h1 className="text-3xl font-semibold text-gray-900">Welcome to the Website</h1>
-                <p className="mt-4 text-lg text-gray-700">
-                    This is a sample website with a responsive navigation bar.
-                </p>
-
                 <div className="flex justify-center mt-8">
                     <ProductSlider
                         title="Popüler Ürünler"

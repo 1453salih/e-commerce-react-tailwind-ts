@@ -3,6 +3,7 @@ import { Navbar } from './components/layout/Navbar/Navbar';
 import './App.css'
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import {HomePage} from "./pages/HomePage.tsx";
+
 function App() {
     //* Örnek Ürün Listesi (daha sonra veritabanından çekilecek zaten)
     return (
